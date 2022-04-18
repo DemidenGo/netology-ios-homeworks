@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainTabBarViewController: UITabBarController {
+final class MainTabBarViewController: UITabBarController {
 
     let feedVC = FeedViewController()
     let profileVC = ProfileViewController()
@@ -18,17 +18,21 @@ class MainTabBarViewController: UITabBarController {
     }
 
     private func setupControllers() {
-        feedVC.tabBarItem.title = "Лента"
+
+        feedVC.tabBarItem.title = "Feed"
         feedVC.tabBarItem.image = UIImage(systemName: "film")
-        feedVC.navigationItem.title = "Лента"
+        feedVC.navigationItem.title = "Feed"
+        feedVC.navigationItem.backButtonTitle = "Back"
         let feedNavigationController = UINavigationController(rootViewController: feedVC)
 
-        profileVC.tabBarItem.title = "Профиль"
+        profileVC.tabBarItem.title = "Profile"
         profileVC.tabBarItem.image = UIImage(systemName: "folder.fill.badge.person.crop")
-        profileVC.navigationItem.title = "Профиль"
+        profileVC.navigationItem.title = "Profile"
         let profileNavigationController = UINavigationController(rootViewController: profileVC)
 
+        tabBar.backgroundColor = .white
         viewControllers = [feedNavigationController, profileNavigationController]
+
     }
 
 }

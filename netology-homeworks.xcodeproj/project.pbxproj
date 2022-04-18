@@ -12,24 +12,26 @@
 		921D53032801E34C00F93E39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 921D53012801E34C00F93E39 /* LaunchScreen.storyboard */; };
 		921D530B2801EB7700F93E39 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D530A2801EB7700F93E39 /* MainTabBarViewController.swift */; };
 		921D530D2802122E00F93E39 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D530C2802122E00F93E39 /* FeedViewController.swift */; };
-		921D530F2802124B00F93E39 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D530E2802124B00F93E39 /* ProfileViewController.swift */; };
 		921D531128021F8E00F93E39 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D531028021F8E00F93E39 /* PostViewController.swift */; };
 		921D53132802242100F93E39 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D53122802242100F93E39 /* Post.swift */; };
 		921D5315280228F200F93E39 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5314280228F200F93E39 /* InfoViewController.swift */; };
+		92370940280830BF00178150 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237093F280830BF00178150 /* ProfileHeaderView.swift */; };
+		92370942280830F800178150 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92370941280830F800178150 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		921D52F32801E34B00F93E39 /* hometask_1.3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hometask_1.3.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		921D52F32801E34B00F93E39 /* hometask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hometask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		921D52F62801E34B00F93E39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		921D52FF2801E34C00F93E39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		921D53022801E34C00F93E39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		921D53042801E34C00F93E39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		921D530A2801EB7700F93E39 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		921D530C2802122E00F93E39 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
-		921D530E2802124B00F93E39 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		921D531028021F8E00F93E39 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		921D53122802242100F93E39 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		921D5314280228F200F93E39 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		9237093F280830BF00178150 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		92370941280830F800178150 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +48,7 @@
 		921D52EA2801E34B00F93E39 = {
 			isa = PBXGroup;
 			children = (
-				921D52F52801E34B00F93E39 /* hometask_1.3 */,
+				921D52F52801E34B00F93E39 /* hometask */,
 				921D52F42801E34B00F93E39 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,18 +56,18 @@
 		921D52F42801E34B00F93E39 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				921D52F32801E34B00F93E39 /* hometask_1.3.app */,
+				921D52F32801E34B00F93E39 /* hometask.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		921D52F52801E34B00F93E39 /* hometask_1.3 */ = {
+		921D52F52801E34B00F93E39 /* hometask */ = {
 			isa = PBXGroup;
 			children = (
+				9237093E2808306100178150 /* Profile */,
 				921D52F62801E34B00F93E39 /* AppDelegate.swift */,
 				921D530A2801EB7700F93E39 /* MainTabBarViewController.swift */,
 				921D530C2802122E00F93E39 /* FeedViewController.swift */,
-				921D530E2802124B00F93E39 /* ProfileViewController.swift */,
 				921D531028021F8E00F93E39 /* PostViewController.swift */,
 				921D5314280228F200F93E39 /* InfoViewController.swift */,
 				921D53122802242100F93E39 /* Post.swift */,
@@ -73,15 +75,24 @@
 				921D53012801E34C00F93E39 /* LaunchScreen.storyboard */,
 				921D53042801E34C00F93E39 /* Info.plist */,
 			);
-			path = hometask_1.3;
+			path = hometask;
+			sourceTree = "<group>";
+		};
+		9237093E2808306100178150 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				9237093F280830BF00178150 /* ProfileHeaderView.swift */,
+				92370941280830F800178150 /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		921D52F22801E34B00F93E39 /* hometask_1.3 */ = {
+		921D52F22801E34B00F93E39 /* hometask */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 921D53072801E34C00F93E39 /* Build configuration list for PBXNativeTarget "hometask_1.3" */;
+			buildConfigurationList = 921D53072801E34C00F93E39 /* Build configuration list for PBXNativeTarget "hometask" */;
 			buildPhases = (
 				921D52EF2801E34B00F93E39 /* Sources */,
 				921D52F02801E34B00F93E39 /* Frameworks */,
@@ -91,9 +102,9 @@
 			);
 			dependencies = (
 			);
-			name = hometask_1.3;
+			name = hometask;
 			productName = hometask_1.3;
-			productReference = 921D52F32801E34B00F93E39 /* hometask_1.3.app */;
+			productReference = 921D52F32801E34B00F93E39 /* hometask.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -111,7 +122,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 921D52EE2801E34B00F93E39 /* Build configuration list for PBXProject "hometask_1.3" */;
+			buildConfigurationList = 921D52EE2801E34B00F93E39 /* Build configuration list for PBXProject "netology-homeworks" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -124,7 +135,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				921D52F22801E34B00F93E39 /* hometask_1.3 */,
+				921D52F22801E34B00F93E39 /* hometask */,
 			);
 		};
 /* End PBXProject section */
@@ -148,11 +159,12 @@
 			files = (
 				921D530B2801EB7700F93E39 /* MainTabBarViewController.swift in Sources */,
 				921D530D2802122E00F93E39 /* FeedViewController.swift in Sources */,
-				921D530F2802124B00F93E39 /* ProfileViewController.swift in Sources */,
 				921D5315280228F200F93E39 /* InfoViewController.swift in Sources */,
 				921D53132802242100F93E39 /* Post.swift in Sources */,
 				921D52F72801E34B00F93E39 /* AppDelegate.swift in Sources */,
+				92370942280830F800178150 /* ProfileViewController.swift in Sources */,
 				921D531128021F8E00F93E39 /* PostViewController.swift in Sources */,
+				92370940280830BF00178150 /* ProfileHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,17 +307,18 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = JL5AZQCU9T;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = hometask_1.3/Info.plist;
+				INFOPLIST_FILE = hometask/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "demidengo.hometask-1-3";
+				PRODUCT_BUNDLE_IDENTIFIER = demidengo.hometask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -322,17 +335,18 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = JL5AZQCU9T;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = hometask_1.3/Info.plist;
+				INFOPLIST_FILE = hometask/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "demidengo.hometask-1-3";
+				PRODUCT_BUNDLE_IDENTIFIER = demidengo.hometask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -343,7 +357,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		921D52EE2801E34B00F93E39 /* Build configuration list for PBXProject "hometask_1.3" */ = {
+		921D52EE2801E34B00F93E39 /* Build configuration list for PBXProject "netology-homeworks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				921D53052801E34C00F93E39 /* Debug */,
@@ -352,7 +366,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		921D53072801E34C00F93E39 /* Build configuration list for PBXNativeTarget "hometask_1.3" */ = {
+		921D53072801E34C00F93E39 /* Build configuration list for PBXNativeTarget "hometask" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				921D53082801E34C00F93E39 /* Debug */,
