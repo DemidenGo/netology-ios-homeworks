@@ -9,16 +9,17 @@ import UIKit
 
 final class ProfileHeaderView: UIView {
 
-    private let imageView: UIImageView = {
-        let imageView = UIImageView(frame: CGRect(x: 16, y: 107, width: 120, height: 120))
+    private let profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .systemBlue
         imageView.image = UIImage(named: "homer")
-        imageView.makeRounded()
         return imageView
     }()
 
-    private let profileLabel: UILabel = {
-        let profileLabel = UILabel(frame: CGRect(x: 152, y: 118, width: 150, height: 20))
+    private let profileNameLabel: UILabel = {
+        let profileLabel = UILabel()
+        profileLabel.translatesAutoresizingMaskIntoConstraints = false
         profileLabel.text = "Homer Simpson"
         profileLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         profileLabel.textColor = .black
@@ -26,15 +27,17 @@ final class ProfileHeaderView: UIView {
     }()
 
     private let statusLabel: UILabel = {
-        let statusLabel = UILabel(frame: CGRect(x: 152, y: 189, width: 150, height: 20))
+        let statusLabel = UILabel()
+        statusLabel.translatesAutoresizingMaskIntoConstraints = false
         statusLabel.text = "Woo-Hoo!"
         statusLabel.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         statusLabel.textColor = .gray
         return statusLabel
     }()
 
-    private let statusButton: UIButton = {
-        let statusButton = UIButton(frame: CGRect(x: 16, y: 265, width: UIScreen.main.bounds.width - 32, height: 50))
+    private let setStatusButton: UIButton = {
+        let statusButton = UIButton()
+        statusButton.translatesAutoresizingMaskIntoConstraints = false
         statusButton.backgroundColor = .systemBlue
         statusButton.setTitleColor(.white, for: .normal)
         statusButton.setTitle("Set status", for: .normal)
@@ -54,7 +57,8 @@ final class ProfileHeaderView: UIView {
     }
 
     private let statusTextField: UITextField = {
-        let textField = UITextField(frame: CGRect(x: 152, y: 215, width: UIScreen.main.bounds.width - 168, height: 40))
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Enter your status here"
         textField.makeIndent(points: 10)
         textField.clearButtonMode = .whileEditing
@@ -74,18 +78,52 @@ final class ProfileHeaderView: UIView {
         statusText = statusTextField.text
     }
 
-    func addCustomSubviews() {
-        addSubview(imageView)
-        addSubview(profileLabel)
-        addSubview(statusLabel)
-        addSubview(statusButton)
-        addSubview(statusTextField)
+    func layout() {
+
+        [profileImageView, profileNameLabel, statusLabel, setStatusButton, statusTextField].forEach { self.addSubview($0) }
+
+        NSLayoutConstraint.activate([
+            profileImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
+            profileImageView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            profileImageView.widthAnchor.constraint(equalToConstant: 120),
+            profileImageView.heightAnchor.constraint(equalToConstant: 120)
+        ])
+        profileImageView.makeRounded()
+
+        NSLayoutConstraint.activate([
+            profileNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 27),
+            profileNameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
+            profileNameLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 16),
+            profileNameLabel.heightAnchor.constraint(equalToConstant: 20)
+        ])
+
+        NSLayoutConstraint.activate([
+            statusLabel.topAnchor.constraint(equalTo: profileNameLabel.bottomAnchor, constant: 50),
+            statusLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
+            statusLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 16),
+            statusLabel.heightAnchor.constraint(equalToConstant: 16)
+        ])
+
+        NSLayoutConstraint.activate([
+            statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 8),
+            statusTextField.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
+            statusTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            statusTextField.heightAnchor.constraint(equalToConstant: 40)
+        ])
+
+        NSLayoutConstraint.activate([
+            setStatusButton.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16),
+            setStatusButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            setStatusButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            setStatusButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
 }
 
 extension UIImageView {
 
     func makeRounded() {
+        self.layoutIfNeeded()
         self.contentMode = .scaleAspectFit
         self.layer.cornerRadius = self.frame.height / 2
         self.layer.borderWidth = 3

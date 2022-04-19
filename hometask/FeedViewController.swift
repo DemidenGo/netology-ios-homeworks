@@ -9,26 +9,65 @@ import UIKit
 
 class FeedViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .yellow
-        makeButton()
-    }
+    private let feedStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.backgroundColor = .systemGray
+        stackView.distribution = .fillEqually
+        stackView.spacing = 10
+        return stackView
+    }()
 
-    private func makeButton() {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
-        button.center = view.center
-        button.setTitle("Показать пост", for: .normal)
-        button.backgroundColor = .black
+    private let firstButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("First button", for: .normal)
+        button.backgroundColor = .systemBlue
         button.addTarget(self, action: #selector(tapAction), for: .touchUpInside)
-        view.addSubview(button)
-    }
+        return button
+    }()
+
+    private let secondButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Second button", for: .normal)
+        button.backgroundColor = .systemBlue
+        button.addTarget(self, action: #selector(tapAction), for: .touchUpInside)
+        return button
+    }()
 
     @objc private func tapAction() {
         let postVC = PostViewController()
         navigationController?.pushViewController(postVC, animated: true)
-        let post = Post(title: "Мой первый пост")
+        let post = Post(title: "My post")
         postVC.post = post
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.setupController()
+    }
+
+    private func setupController() {
+
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.backgroundColor = .white
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+
+        self.view.backgroundColor = .systemGray
+
+        self.view.addSubview(feedStackView)
+        feedStackView.center = self.view.center
+        [firstButton, secondButton].forEach { feedStackView.addArrangedSubview($0) }
+
+        NSLayoutConstraint.activate([
+            feedStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            feedStackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            feedStackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            feedStackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor)
+        ])
+    }
 }
