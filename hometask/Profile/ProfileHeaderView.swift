@@ -56,7 +56,7 @@ final class ProfileHeaderView: UIView {
         statusLabel.text = statusText
     }
 
-    private let statusTextField: UITextField = {
+    private lazy var statusTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Enter your status here"
@@ -69,6 +69,7 @@ final class ProfileHeaderView: UIView {
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.cornerRadius = 12
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        textField.delegate = self
         return textField
     }()
 
@@ -137,5 +138,15 @@ extension UITextField {
     func makeIndent(points: CGFloat) {
         self.leftView = UIView(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: points, height: self.frame.height))
         self.leftViewMode = .always
+    }
+}
+
+//MARK: - UITextFieldDelegate
+
+extension ProfileHeaderView: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.endEditing(true)
+        return true
     }
 }

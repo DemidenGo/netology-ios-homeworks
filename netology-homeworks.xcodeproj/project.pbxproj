@@ -17,6 +17,7 @@
 		921D5315280228F200F93E39 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921D5314280228F200F93E39 /* InfoViewController.swift */; };
 		92370940280830BF00178150 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9237093F280830BF00178150 /* ProfileHeaderView.swift */; };
 		92370942280830F800178150 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92370941280830F800178150 /* ProfileViewController.swift */; };
+		92CF9EB028148F120007C732 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92CF9EAF28148F120007C732 /* LogInViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		921D5314280228F200F93E39 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		9237093F280830BF00178150 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		92370941280830F800178150 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		92CF9EAF28148F120007C732 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 			children = (
 				9237093F280830BF00178150 /* ProfileHeaderView.swift */,
 				92370941280830F800178150 /* ProfileViewController.swift */,
+				92CF9EAF28148F120007C732 /* LogInViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 			files = (
 				921D530B2801EB7700F93E39 /* MainTabBarViewController.swift in Sources */,
 				921D530D2802122E00F93E39 /* FeedViewController.swift in Sources */,
+				92CF9EB028148F120007C732 /* LogInViewController.swift in Sources */,
 				921D5315280228F200F93E39 /* InfoViewController.swift in Sources */,
 				921D53132802242100F93E39 /* Post.swift in Sources */,
 				921D52F72801E34B00F93E39 /* AppDelegate.swift in Sources */,

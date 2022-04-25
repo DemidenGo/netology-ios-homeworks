@@ -9,8 +9,8 @@ import UIKit
 
 final class MainTabBarViewController: UITabBarController {
 
-    let feedVC = FeedViewController()
-    let profileVC = ProfileViewController()
+    private let feedVC = FeedViewController()
+    private let profileVC = LogInViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,15 +23,17 @@ final class MainTabBarViewController: UITabBarController {
         feedVC.tabBarItem.image = UIImage(systemName: "film")
         feedVC.navigationItem.title = "Feed"
         feedVC.navigationItem.backButtonTitle = "Back"
-        let feedNavigationController = UINavigationController(rootViewController: feedVC)
+        let feedNavController = UINavigationController(rootViewController: feedVC)
 
         profileVC.tabBarItem.title = "Profile"
         profileVC.tabBarItem.image = UIImage(systemName: "folder.fill.badge.person.crop")
         profileVC.navigationItem.title = "Profile"
-        let profileNavigationController = UINavigationController(rootViewController: profileVC)
+        profileVC.navigationItem.backButtonTitle = "Back"
+        let profileNavController = UINavigationController(rootViewController: profileVC)
+        profileNavController.navigationBar.isHidden = true
 
         tabBar.backgroundColor = .white
-        viewControllers = [feedNavigationController, profileNavigationController]
+        viewControllers = [feedNavController, profileNavController]
 
     }
 
