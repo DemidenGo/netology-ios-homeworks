@@ -7,48 +7,72 @@
 
 import UIKit
 
+//MARK: - ProfileViewController
+
 final class ProfileViewController: UIViewController {
 
-    private let profileHeaderView = ProfileHeaderView()
+    private let postModel: [PostModel] = PostModel.makeMockModel()
 
-    private let newButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("New button", for: .normal)
-        button.backgroundColor = .systemBlue
-        return button
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+        return tableView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupController()
-        profileHeaderView.layout()
+        setupController()
+        layout()
+    }
+
+    private func layout() {
+
+        view.addSubview(tableView)
+
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
 
     private func setupController() {
 
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithOpaqueBackground()
-        navBarAppearance.backgroundColor = .white
-        navigationController?.navigationBar.standardAppearance = navBarAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        navigationController?.navigationBar.isHidden = true
+        view.backgroundColor = .white
+    }
+}
 
-        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
-        self.view.backgroundColor = .lightGray
+//MARK: - UITableViewDataSource
 
-        [profileHeaderView, newButton].forEach { self.view.addSubview($0) }
+extension ProfileViewController: UITableViewDataSource {
 
-        NSLayoutConstraint.activate([
-            profileHeaderView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            profileHeaderView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            profileHeaderView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 245)
-        ])
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return postModel.count
+    }
 
-        NSLayoutConstraint.activate([
-            newButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            newButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            newButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+        cell.setupCell(postModel[indexPath.row])
+        return cell
+    }
+}
+
+//MARK: - UITableViewDelegate
+
+extension ProfileViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = ProfileHeaderView()
+        header.layout()
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 245
     }
 }

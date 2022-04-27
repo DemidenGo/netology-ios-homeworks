@@ -121,26 +121,6 @@ final class ProfileHeaderView: UIView {
     }
 }
 
-extension UIImageView {
-
-    func makeRounded() {
-        self.layoutIfNeeded()
-        self.contentMode = .scaleAspectFit
-        self.layer.cornerRadius = self.frame.height / 2
-        self.layer.borderWidth = 3
-        self.layer.borderColor = UIColor.white.cgColor
-        self.layer.masksToBounds = true
-    }
-}
-
-extension UITextField {
-
-    func makeIndent(points: CGFloat) {
-        self.leftView = UIView(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: points, height: self.frame.height))
-        self.leftViewMode = .always
-    }
-}
-
 //MARK: - UITextFieldDelegate
 
 extension ProfileHeaderView: UITextFieldDelegate {
