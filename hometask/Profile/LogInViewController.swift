@@ -88,9 +88,6 @@ final class LogInViewController: UIViewController {
 
     @objc private func tapAction() {
         let profileVC = ProfileViewController()
-        profileVC.title = "Profile"
-        profileVC.navigationItem.setHidesBackButton(true, animated: true)
-        navigationController?.navigationBar.isHidden = false
         navigationController?.pushViewController(profileVC, animated: true)
     }
 
@@ -130,9 +127,9 @@ final class LogInViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
 
         scrollView.addSubview(contentView)

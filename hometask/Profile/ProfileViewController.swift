@@ -16,20 +16,27 @@ final class ProfileViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.delaysContentTouches = false
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+        tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
         return tableView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupController()
         layout()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
     }
 
     private func layout() {
 
+        view.backgroundColor = .white
         view.addSubview(tableView)
 
         NSLayoutConstraint.activate([
@@ -39,26 +46,40 @@ final class ProfileViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
-
-    private func setupController() {
-
-        navigationController?.navigationBar.isHidden = true
-        view.backgroundColor = .white
-    }
 }
 
 //MARK: - UITableViewDataSource
 
 extension ProfileViewController: UITableViewDataSource {
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postModel.count
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return postModel.count
+        default:
+            return 0
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
-        cell.setupCell(postModel[indexPath.row])
-        return cell
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifier, for: indexPath) as! PhotosTableViewCell
+            cell.delegate = self
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier, for: indexPath) as! PostTableViewCell
+            cell.setupCell(postModel[indexPath.row])
+            return cell
+        default:
+            return UITableViewCell()
+        }
     }
 }
 
@@ -67,12 +88,43 @@ extension ProfileViewController: UITableViewDataSource {
 extension ProfileViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = ProfileHeaderView()
-        header.layout()
-        return header
+        switch section {
+        case 0:
+            let header = ProfileHeaderView()
+            header.layout()
+            return header
+        case 1:
+            return nil
+        default:
+            return nil
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 245
+        switch section {
+        case 0:
+            return 245
+        case 1:
+            return 0
+        default:
+            return 0
+        }
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 10
+    }
+}
+
+//MARK: - ViewDelegate
+
+extension ProfileViewController: ViewDelegate {
+
+    func showNavigationController(_ viewController: UIViewController) {
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
