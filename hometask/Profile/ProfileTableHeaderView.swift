@@ -56,7 +56,7 @@ final class ProfileHeaderView: UIView {
         statusLabel.text = statusText
     }
 
-    private lazy var statusTextField: UITextField = {
+    private let statusTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Enter your status here"
@@ -69,7 +69,7 @@ final class ProfileHeaderView: UIView {
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.cornerRadius = 12
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        textField.delegate = self
+
         return textField
     }()
 
@@ -77,6 +77,20 @@ final class ProfileHeaderView: UIView {
 
     @objc private func textFieldDidChange() {
         statusText = statusTextField.text
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        statusTextField.delegate = self
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        profileImageView.makeRounded()
     }
 
     func layout() {
@@ -89,7 +103,6 @@ final class ProfileHeaderView: UIView {
             profileImageView.widthAnchor.constraint(equalToConstant: 120),
             profileImageView.heightAnchor.constraint(equalToConstant: 120)
         ])
-        profileImageView.makeRounded()
 
         NSLayoutConstraint.activate([
             profileNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 27),

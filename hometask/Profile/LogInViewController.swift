@@ -32,7 +32,7 @@ final class LogInViewController: UIViewController {
         return imageView
     }()
 
-    private lazy var emailTextField: UITextField = {
+    private let emailTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.borderColor = UIColor.lightGray.cgColor
@@ -46,11 +46,10 @@ final class LogInViewController: UIViewController {
         textField.placeholder = "Email or phone"
         textField.clearButtonMode = .whileEditing
         textField.makeIndent(points: 12)
-        textField.delegate = self
         return textField
     }()
 
-    private lazy var passwordTextField: UITextField = {
+    private let passwordTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.borderColor = UIColor.lightGray.cgColor
@@ -65,7 +64,6 @@ final class LogInViewController: UIViewController {
         textField.clearButtonMode = .whileEditing
         textField.makeIndent(points: 12)
         textField.isSecureTextEntry = true
-        textField.delegate = self
         return textField
     }()
 
@@ -93,8 +91,9 @@ final class LogInViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        addTapGestureToHideKeyboard()
         layout()
+        setDelegates()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -121,8 +120,15 @@ final class LogInViewController: UIViewController {
         scrollView.verticalScrollIndicatorInsets = .zero
     }
 
+    private func setDelegates() {
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+    }
+
     private func layout() {
 
+        view.backgroundColor = .white
+    
         view.addSubview(scrollView)
 
         NSLayoutConstraint.activate([

@@ -9,9 +9,16 @@ import UIKit
 
 class PhotosViewController: UIViewController {
 
-    private let galleryPhotosCollectionView = makeCollectionView(scrollDirection: .vertical)
-
     private let photosGalleryModel: [PhotosGalleryModel] = PhotosGalleryModel.makeMockModel()
+
+    private let galleryPhotosCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .white
+        return collectionView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
