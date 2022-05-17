@@ -36,5 +36,4 @@ final class MainTabBarViewController: UITabBarController {
         viewControllers = [feedNavController, profileNavController]
 
     }
-
 }

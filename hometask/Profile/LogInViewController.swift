@@ -11,28 +11,28 @@ final class LogInViewController: UIViewController {
 
     private let notificationCenter = NotificationCenter.default
 
-    private let scrollView: UIScrollView = {
+    private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.delaysContentTouches = false
         return scrollView
     }()
 
-    private let contentView: UIView = {
+    private lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         return view
     }()
 
-    private let imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "logo")
         return imageView
     }()
 
-    private let emailTextField: UITextField = {
+    private lazy var emailTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.borderColor = UIColor.lightGray.cgColor
@@ -46,10 +46,11 @@ final class LogInViewController: UIViewController {
         textField.placeholder = "Email or phone"
         textField.clearButtonMode = .whileEditing
         textField.makeIndent(points: 12)
+        textField.delegate = self
         return textField
     }()
 
-    private let passwordTextField: UITextField = {
+    private lazy var passwordTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.borderColor = UIColor.lightGray.cgColor
@@ -64,10 +65,11 @@ final class LogInViewController: UIViewController {
         textField.clearButtonMode = .whileEditing
         textField.makeIndent(points: 12)
         textField.isSecureTextEntry = true
+        textField.delegate = self
         return textField
     }()
 
-    private let logInButton: UIButton = {
+    private lazy var logInButton: UIButton = {
         let button = UIButton()
         let image = UIImage(named: "blue_pixel")
         let alpha: CGFloat = 0.8
@@ -93,7 +95,6 @@ final class LogInViewController: UIViewController {
         super.viewDidLoad()
         addTapGestureToHideKeyboard()
         layout()
-        setDelegates()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -120,59 +121,41 @@ final class LogInViewController: UIViewController {
         scrollView.verticalScrollIndicatorInsets = .zero
     }
 
-    private func setDelegates() {
-        emailTextField.delegate = self
-        passwordTextField.delegate = self
-    }
-
     private func layout() {
 
         view.backgroundColor = .white
     
         view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        [imageView, emailTextField, passwordTextField, logInButton].forEach { contentView.addSubview($0) }
 
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-        ])
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
 
-        scrollView.addSubview(contentView)
-
-        NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-        ])
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
 
-        [imageView, emailTextField, passwordTextField, logInButton].forEach { contentView.addSubview($0) }
-
-        NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
             imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             imageView.widthAnchor.constraint(equalToConstant: 100),
-            imageView.heightAnchor.constraint(equalToConstant: 100)
-        ])
+            imageView.heightAnchor.constraint(equalToConstant: 100),
 
-        NSLayoutConstraint.activate([
             emailTextField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 120),
             emailTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             emailTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            emailTextField.heightAnchor.constraint(equalToConstant: 50)
-        ])
+            emailTextField.heightAnchor.constraint(equalToConstant: 50),
 
-        NSLayoutConstraint.activate([
             passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor),
             passwordTextField.leadingAnchor.constraint(equalTo: emailTextField.leadingAnchor),
             passwordTextField.trailingAnchor.constraint(equalTo: emailTextField.trailingAnchor),
-            passwordTextField.heightAnchor.constraint(equalToConstant: 50)
+            passwordTextField.heightAnchor.constraint(equalToConstant: 50),
 
-        ])
-
-        NSLayoutConstraint.activate([
             logInButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 16),
             logInButton.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor),
             logInButton.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor),

@@ -7,7 +7,8 @@
 
 import UIKit
 
-protocol ShowViewControllerDelegate: AnyObject {
+/// Show ViewController from View
+protocol ViewShowable: AnyObject {
 
-    func show(viewController: UIViewController)
+    func show(_ viewController: UIViewController)
 }

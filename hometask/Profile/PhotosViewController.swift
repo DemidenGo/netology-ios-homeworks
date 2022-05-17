@@ -11,19 +11,21 @@ class PhotosViewController: UIViewController {
 
     private let photosGalleryModel: [PhotosGalleryModel] = PhotosGalleryModel.makeMockModel()
 
-    private let galleryPhotosCollectionView: UICollectionView = {
+    private lazy var galleryPhotosCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
         return collectionView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupController()
-        setupCollection()
         layout()
     }
 
@@ -31,12 +33,6 @@ class PhotosViewController: UIViewController {
         view.backgroundColor = .white
         navigationController?.navigationBar.isHidden = false
         self.title = "Photo Gallery"
-    }
-
-    private func setupCollection() {
-        galleryPhotosCollectionView.dataSource = self
-        galleryPhotosCollectionView.delegate = self
-        galleryPhotosCollectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
     }
 
     private func layout() {

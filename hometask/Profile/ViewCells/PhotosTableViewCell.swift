@@ -9,18 +9,18 @@ import UIKit
 
 final class PhotosTableViewCell: UITableViewCell {
 
-    weak var delegate: ShowViewControllerDelegate?
+    weak var delegate: ViewShowable?
 
     private let photosGalleryModel: [PhotosGalleryModel] = PhotosGalleryModel.makeMockModel()
 
-    private let backgroundCellView: UIView = {
+    private lazy var backgroundCellView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         return view
     }()
 
-    private let photosLabel: UILabel = {
+    private lazy var photosLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .white
@@ -30,7 +30,7 @@ final class PhotosTableViewCell: UITableViewCell {
         return label
     }()
 
-    private let arrowButton: UIButton = {
+    private lazy var arrowButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .white
@@ -44,19 +44,21 @@ final class PhotosTableViewCell: UITableViewCell {
         return button
     }()
 
-    private let previewPhotosCollectionView: UICollectionView = {
+    private lazy var previewPhotosCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
         return collectionView
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         layout()
-        setupCollection()
     }
 
     required init?(coder: NSCoder) {
@@ -65,13 +67,7 @@ final class PhotosTableViewCell: UITableViewCell {
 
     @objc private func tapAction() {
         let photosVC = PhotosViewController()
-        delegate?.show(viewController: photosVC)
-    }
-
-    private func setupCollection() {
-        previewPhotosCollectionView.dataSource = self
-        previewPhotosCollectionView.delegate = self
-        previewPhotosCollectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
+        delegate?.show(photosVC)
     }
 
     private func layout() {
@@ -84,20 +80,14 @@ final class PhotosTableViewCell: UITableViewCell {
             backgroundCellView.topAnchor.constraint(equalTo: contentView.topAnchor),
             backgroundCellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             backgroundCellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            backgroundCellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-        ])
+            backgroundCellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
 
-        NSLayoutConstraint.activate([
             photosLabel.topAnchor.constraint(equalTo: backgroundCellView.topAnchor, constant: inset),
-            photosLabel.leadingAnchor.constraint(equalTo: backgroundCellView.leadingAnchor, constant: inset)
-        ])
+            photosLabel.leadingAnchor.constraint(equalTo: backgroundCellView.leadingAnchor, constant: inset),
 
-        NSLayoutConstraint.activate([
             arrowButton.centerYAnchor.constraint(equalTo: photosLabel.centerYAnchor),
-            arrowButton.trailingAnchor.constraint(equalTo: backgroundCellView.trailingAnchor, constant: -inset)
-        ])
+            arrowButton.trailingAnchor.constraint(equalTo: backgroundCellView.trailingAnchor, constant: -inset),
 
-        NSLayoutConstraint.activate([
             previewPhotosCollectionView.topAnchor.constraint(equalTo: photosLabel.bottomAnchor, constant: inset),
             previewPhotosCollectionView.leadingAnchor.constraint(equalTo: backgroundCellView.leadingAnchor, constant: inset),
             previewPhotosCollectionView.bottomAnchor.constraint(equalTo: backgroundCellView.bottomAnchor, constant: -inset),
