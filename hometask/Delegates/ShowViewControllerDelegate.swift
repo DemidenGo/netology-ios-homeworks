@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ViewDelegate: AnyObject {
+protocol ShowViewControllerDelegate: AnyObject {
 
-    func showNavigationController (_ viewController: UIViewController)
+    func show(viewController: UIViewController)
 }

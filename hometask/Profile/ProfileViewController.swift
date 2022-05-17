@@ -13,12 +13,10 @@ final class ProfileViewController: UIViewController {
 
     private let postModel: [PostModel] = PostModel.makeMockModel()
 
-    private lazy var tableView: UITableView = {
+    private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delaysContentTouches = false
-        tableView.dataSource = self
-        tableView.delegate = self
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
         return tableView
@@ -27,11 +25,17 @@ final class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
+        setDelegates()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
+    }
+
+    private func setDelegates() {
+        tableView.dataSource = self
+        tableView.delegate = self
     }
 
     private func layout() {
@@ -93,8 +97,6 @@ extension ProfileViewController: UITableViewDelegate {
             let header = ProfileHeaderView()
             header.layout()
             return header
-        case 1:
-            return nil
         default:
             return nil
         }
@@ -104,8 +106,6 @@ extension ProfileViewController: UITableViewDelegate {
         switch section {
         case 0:
             return 245
-        case 1:
-            return 0
         default:
             return 0
         }
@@ -118,13 +118,17 @@ extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
-//MARK: - ViewDelegate
+//MARK: - ShowViewControllerDelegate
 
-extension ProfileViewController: ViewDelegate {
+extension ProfileViewController: ShowViewControllerDelegate {
 
-    func showNavigationController(_ viewController: UIViewController) {
+    func show(viewController: UIViewController) {
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

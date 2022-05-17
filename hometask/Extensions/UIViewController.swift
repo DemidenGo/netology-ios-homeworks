@@ -7,14 +7,12 @@
 
 import UIKit
 
+//MARK: - addTapGestureToHideKeyboard
+
 extension UIViewController {
 
-    static func makeCollectionView(scrollDirection: UICollectionView.ScrollDirection) -> UICollectionView {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = scrollDirection
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
-        return collectionView
+    func addTapGestureToHideKeyboard() {
+        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(view.endEditing(_:)))
+        view.addGestureRecognizer(tapGesture)
     }
 }

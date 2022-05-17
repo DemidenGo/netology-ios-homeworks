@@ -10,7 +10,6 @@ import UIKit
 extension UIImageView {
 
     func makeRounded() {
-        self.layoutIfNeeded()
         self.contentMode = .scaleAspectFit
         self.layer.cornerRadius = self.frame.height / 2
         self.layer.borderWidth = 3

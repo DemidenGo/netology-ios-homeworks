@@ -9,7 +9,7 @@ import UIKit
 
 final class PhotosTableViewCell: UITableViewCell {
 
-    weak var delegate: ViewDelegate?
+    weak var delegate: ShowViewControllerDelegate?
 
     private let photosGalleryModel: [PhotosGalleryModel] = PhotosGalleryModel.makeMockModel()
 
@@ -44,12 +44,14 @@ final class PhotosTableViewCell: UITableViewCell {
         return button
     }()
 
-    @objc private func tapAction() {
-        let photosVC = PhotosViewController()
-        delegate?.showNavigationController(photosVC)
-    }
-
-    private let previewPhotosCollectionView = ProfileViewController.makeCollectionView(scrollDirection: .horizontal)
+    private let previewPhotosCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .white
+        return collectionView
+    }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -59,6 +61,11 @@ final class PhotosTableViewCell: UITableViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    @objc private func tapAction() {
+        let photosVC = PhotosViewController()
+        delegate?.show(viewController: photosVC)
     }
 
     private func setupCollection() {
