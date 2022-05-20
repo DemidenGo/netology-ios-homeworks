@@ -9,11 +9,20 @@ import UIKit
 
 final class ProfileHeaderView: UIView {
 
+    private var profileImageViewWidthConstraint = NSLayoutConstraint()
+    private var profileImageViewHeightConstraint = NSLayoutConstraint()
+    private var profileImageViewCenterXConstraint = NSLayoutConstraint()
+    private var profileImageViewCenterYConstraint = NSLayoutConstraint()
+
+
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGestureAction))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .systemBlue
         imageView.image = UIImage(named: "homer")
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(tapGesture)
         return imageView
     }()
 
@@ -46,11 +55,13 @@ final class ProfileHeaderView: UIView {
         statusButton.layer.shadowRadius = 4
         statusButton.layer.shadowColor = UIColor.black.cgColor
         statusButton.layer.shadowOpacity = 0.7
-        statusButton.addTarget(self, action: #selector(tapAction), for: .touchUpInside)
+        statusButton.addTarget(self, action: #selector(statusButtonAction), for: .touchUpInside)
         return statusButton
     }()
 
-    @objc private func tapAction() {
+    private var statusText: String?
+
+    @objc private func statusButtonAction() {
         guard statusText != nil && statusText != "" else { return }
         statusLabel.text = statusText
     }
@@ -67,15 +78,75 @@ final class ProfileHeaderView: UIView {
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.cornerRadius = 12
-        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        textField.addTarget(self, action: #selector(statusTextFieldDidChange), for: .editingChanged)
         textField.delegate = self
         return textField
     }()
 
-    private var statusText: String?
-
-    @objc private func textFieldDidChange() {
+    @objc private func statusTextFieldDidChange() {
         statusText = statusTextField.text
+    }
+
+    private lazy var largeAvatarBackground: UIView = {
+        let view = UIView(frame: UIScreen.main.bounds)
+        view.backgroundColor = .black
+        view.alpha = 0.0
+        return view
+    }()
+
+    @objc private func tapGestureAction() {
+
+        largeAvatarViewLayout()
+
+        UIView.animateKeyframes(withDuration: 0.8, delay: 0.0) {
+
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.625) {
+                self.profileImageViewWidthConstraint.constant = UIScreen.main.bounds.width
+                self.profileImageViewHeightConstraint.constant = self.profileImageView.bounds.height * (UIScreen.main.bounds.width / self.profileImageView.bounds.width)
+                self.profileImageViewCenterXConstraint.constant = UIScreen.main.bounds.width / 2
+                self.profileImageViewCenterYConstraint.constant = UIScreen.main.bounds.height / 2 - 25
+                self.layoutIfNeeded()
+            }
+
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.625) {
+                self.largeAvatarBackground.alpha = 0.7
+            }
+
+            UIView.addKeyframe(withRelativeStartTime: 0.625, relativeDuration: 0.375) {
+                self.closeButton.alpha = 1.0
+            }
+        }
+    }
+
+    private lazy var closeButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        button.alpha = 0.0
+        button.addTarget(self, action: #selector(closeButtonAction), for: .touchUpInside)
+        return button
+    }()
+
+    @objc private func closeButtonAction() {
+
+        UIView.animateKeyframes(withDuration: 0.8, delay: 0.0) {
+
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.375) {
+                self.closeButton.alpha = 0.0
+            }
+
+            UIView.addKeyframe(withRelativeStartTime: 0.375, relativeDuration: 0.625) {
+                self.largeAvatarBackground.alpha = 0.0
+            }
+
+            UIView.addKeyframe(withRelativeStartTime: 0.375, relativeDuration: 0.625) {
+                self.profileImageViewWidthConstraint.constant = 120
+                self.profileImageViewHeightConstraint.constant = 120
+                self.profileImageViewCenterXConstraint.constant = 76
+                self.profileImageViewCenterYConstraint.constant = 76
+                self.layoutIfNeeded()
+            }
+        }
     }
 
     override func layoutSubviews() {
@@ -83,28 +154,47 @@ final class ProfileHeaderView: UIView {
         profileImageView.makeRounded()
     }
 
+    private func largeAvatarViewLayout() {
+
+        largeAvatarBackground.addSubview(closeButton)
+        self.addSubview(largeAvatarBackground)
+        self.bringSubviewToFront(profileImageView)
+
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: largeAvatarBackground.safeAreaLayoutGuide.topAnchor, constant: 16),
+            closeButton.trailingAnchor.constraint(equalTo: largeAvatarBackground.safeAreaLayoutGuide.trailingAnchor, constant: -16)
+        ])
+    }
+
     func layout() {
 
         [profileImageView, profileNameLabel, statusLabel, setStatusButton, statusTextField].forEach { self.addSubview($0) }
 
+        profileImageViewCenterXConstraint = profileImageView.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 76)
+        profileImageViewCenterYConstraint = profileImageView.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 76)
+        profileImageViewWidthConstraint = profileImageView.widthAnchor.constraint(equalToConstant: 120)
+        profileImageViewHeightConstraint = profileImageView.heightAnchor.constraint(equalToConstant: 120)
+
+
         NSLayoutConstraint.activate([
-            profileImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
-            profileImageView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            profileImageView.widthAnchor.constraint(equalToConstant: 120),
-            profileImageView.heightAnchor.constraint(equalToConstant: 120),
+
+            profileImageViewCenterXConstraint,
+            profileImageViewCenterYConstraint,
+            profileImageViewWidthConstraint,
+            profileImageViewHeightConstraint,
 
             profileNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 27),
-            profileNameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
+            profileNameLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 156),
             profileNameLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 16),
             profileNameLabel.heightAnchor.constraint(equalToConstant: 20),
 
             statusLabel.topAnchor.constraint(equalTo: profileNameLabel.bottomAnchor, constant: 50),
-            statusLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
+            statusLabel.leadingAnchor.constraint(equalTo: profileNameLabel.leadingAnchor),
             statusLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 16),
             statusLabel.heightAnchor.constraint(equalToConstant: 16),
 
             statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 8),
-            statusTextField.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
+            statusTextField.leadingAnchor.constraint(equalTo: profileNameLabel.leadingAnchor),
             statusTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             statusTextField.heightAnchor.constraint(equalToConstant: 40),
 
