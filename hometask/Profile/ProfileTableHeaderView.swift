@@ -9,7 +9,7 @@ import UIKit
 
 final class ProfileHeaderView: UIView {
 
-    private let profileImageView: UIImageView = {
+    private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .systemBlue
@@ -17,7 +17,7 @@ final class ProfileHeaderView: UIView {
         return imageView
     }()
 
-    private let profileNameLabel: UILabel = {
+    private lazy var profileNameLabel: UILabel = {
         let profileLabel = UILabel()
         profileLabel.translatesAutoresizingMaskIntoConstraints = false
         profileLabel.text = "Homer Simpson"
@@ -26,7 +26,7 @@ final class ProfileHeaderView: UIView {
         return profileLabel
     }()
 
-    private let statusLabel: UILabel = {
+    private lazy var statusLabel: UILabel = {
         let statusLabel = UILabel()
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         statusLabel.text = "Woo-Hoo!"
@@ -35,7 +35,7 @@ final class ProfileHeaderView: UIView {
         return statusLabel
     }()
 
-    private let setStatusButton: UIButton = {
+    private lazy var setStatusButton: UIButton = {
         let statusButton = UIButton()
         statusButton.translatesAutoresizingMaskIntoConstraints = false
         statusButton.backgroundColor = .systemBlue
@@ -51,12 +51,11 @@ final class ProfileHeaderView: UIView {
     }()
 
     @objc private func tapAction() {
-        //print(statusLabel.text ?? "Status not set")
         guard statusText != nil && statusText != "" else { return }
         statusLabel.text = statusText
     }
 
-    private let statusTextField: UITextField = {
+    private lazy var statusTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Enter your status here"
@@ -69,7 +68,7 @@ final class ProfileHeaderView: UIView {
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.cornerRadius = 12
         textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-
+        textField.delegate = self
         return textField
     }()
 
@@ -77,15 +76,6 @@ final class ProfileHeaderView: UIView {
 
     @objc private func textFieldDidChange() {
         statusText = statusTextField.text
-    }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        statusTextField.delegate = self
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     override func layoutSubviews() {
@@ -101,31 +91,23 @@ final class ProfileHeaderView: UIView {
             profileImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
             profileImageView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             profileImageView.widthAnchor.constraint(equalToConstant: 120),
-            profileImageView.heightAnchor.constraint(equalToConstant: 120)
-        ])
+            profileImageView.heightAnchor.constraint(equalToConstant: 120),
 
-        NSLayoutConstraint.activate([
             profileNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 27),
             profileNameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
             profileNameLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 16),
-            profileNameLabel.heightAnchor.constraint(equalToConstant: 20)
-        ])
+            profileNameLabel.heightAnchor.constraint(equalToConstant: 20),
 
-        NSLayoutConstraint.activate([
             statusLabel.topAnchor.constraint(equalTo: profileNameLabel.bottomAnchor, constant: 50),
             statusLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
             statusLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: 16),
-            statusLabel.heightAnchor.constraint(equalToConstant: 16)
-        ])
+            statusLabel.heightAnchor.constraint(equalToConstant: 16),
 
-        NSLayoutConstraint.activate([
             statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 8),
             statusTextField.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
             statusTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            statusTextField.heightAnchor.constraint(equalToConstant: 40)
-        ])
+            statusTextField.heightAnchor.constraint(equalToConstant: 40),
 
-        NSLayoutConstraint.activate([
             setStatusButton.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16),
             setStatusButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             setStatusButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -16),

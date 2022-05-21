@@ -9,7 +9,7 @@ import UIKit
 
 final class PhotosCollectionViewCell: UICollectionViewCell {
 
-    let imageView: UIImageView = {
+    lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .white

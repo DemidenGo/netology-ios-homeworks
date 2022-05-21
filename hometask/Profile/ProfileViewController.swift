@@ -13,29 +13,25 @@ final class ProfileViewController: UIViewController {
 
     private let postModel: [PostModel] = PostModel.makeMockModel()
 
-    private let tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delaysContentTouches = false
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
         tableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
+        tableView.dataSource = self
+        tableView.delegate = self
         return tableView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
-        setDelegates()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
-    }
-
-    private func setDelegates() {
-        tableView.dataSource = self
-        tableView.delegate = self
     }
 
     private func layout() {
@@ -124,11 +120,11 @@ extension ProfileViewController: UITableViewDelegate {
     }
 }
 
-//MARK: - ShowViewControllerDelegate
+//MARK: - ViewShowable
 
-extension ProfileViewController: ShowViewControllerDelegate {
+extension ProfileViewController: ViewShowable {
 
-    func show(viewController: UIViewController) {
+    func show(_ viewController: UIViewController) {
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

@@ -7,9 +7,9 @@
 
 import UIKit
 
-class FeedViewController: UIViewController {
+final class FeedViewController: UIViewController {
 
-    private let feedStackView: UIStackView = {
+    private lazy var feedStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -19,7 +19,7 @@ class FeedViewController: UIViewController {
         return stackView
     }()
 
-    private let firstButton: UIButton = {
+    private lazy var firstButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("First button", for: .normal)
@@ -28,7 +28,7 @@ class FeedViewController: UIViewController {
         return button
     }()
 
-    private let secondButton: UIButton = {
+    private lazy var secondButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Second button", for: .normal)

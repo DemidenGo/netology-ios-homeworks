@@ -9,14 +9,14 @@ import UIKit
 
 final class PostTableViewCell: UITableViewCell {
 
-    private let backgroundCellView: UIView = {
+    private lazy var backgroundCellView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         return view
     }()
 
-    private let postTitleLabel: UILabel = {
+    private lazy var postTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .white
@@ -26,7 +26,7 @@ final class PostTableViewCell: UITableViewCell {
         return label
     }()
 
-    private let postImageView: UIImageView = {
+    private lazy var postImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .black
@@ -34,7 +34,7 @@ final class PostTableViewCell: UITableViewCell {
         return imageView
     }()
 
-    private let postDescriptionLabel: UILabel = {
+    private lazy var postDescriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .white
@@ -44,7 +44,7 @@ final class PostTableViewCell: UITableViewCell {
         return label
     }()
 
-    private let postLikesLabel: UILabel = {
+    private lazy var postLikesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 16, weight: .regular)
@@ -53,7 +53,7 @@ final class PostTableViewCell: UITableViewCell {
         return label
     }()
 
-    private let postViewsLabel: UILabel = {
+    private lazy var postViewsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 16, weight: .regular)
@@ -88,35 +88,25 @@ final class PostTableViewCell: UITableViewCell {
             backgroundCellView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
             backgroundCellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
             backgroundCellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset),
-            backgroundCellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset)
-        ])
+            backgroundCellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
 
-        NSLayoutConstraint.activate([
             postTitleLabel.topAnchor.constraint(equalTo: backgroundCellView.topAnchor),
             postTitleLabel.leadingAnchor.constraint(equalTo: backgroundCellView.leadingAnchor),
-            postTitleLabel.trailingAnchor.constraint(equalTo: backgroundCellView.trailingAnchor)
-        ])
+            postTitleLabel.trailingAnchor.constraint(equalTo: backgroundCellView.trailingAnchor),
 
-        NSLayoutConstraint.activate([
             postImageView.topAnchor.constraint(equalTo: postTitleLabel.bottomAnchor, constant: 12),
             postImageView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
-            postImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width)
-        ])
+            postImageView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
 
-        NSLayoutConstraint.activate([
             postDescriptionLabel.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: inset),
             postDescriptionLabel.leadingAnchor.constraint(equalTo: backgroundCellView.leadingAnchor, constant: inset),
-            postDescriptionLabel.trailingAnchor.constraint(equalTo: backgroundCellView.trailingAnchor, constant: -inset)
-        ])
+            postDescriptionLabel.trailingAnchor.constraint(equalTo: backgroundCellView.trailingAnchor, constant: -inset),
 
-        NSLayoutConstraint.activate([
             postLikesLabel.topAnchor.constraint(equalTo: postDescriptionLabel.bottomAnchor, constant: inset),
             postLikesLabel.leadingAnchor.constraint(equalTo: backgroundCellView.leadingAnchor, constant: inset),
             postLikesLabel.bottomAnchor.constraint(equalTo: backgroundCellView.bottomAnchor),
-            postLikesLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2)
-        ])
+            postLikesLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2),
 
-        NSLayoutConstraint.activate([
             postViewsLabel.topAnchor.constraint(equalTo: postDescriptionLabel.bottomAnchor, constant: inset),
             postViewsLabel.bottomAnchor.constraint(equalTo: backgroundCellView.bottomAnchor),
             postViewsLabel.trailingAnchor.constraint(equalTo: backgroundCellView.trailingAnchor, constant: -inset),
