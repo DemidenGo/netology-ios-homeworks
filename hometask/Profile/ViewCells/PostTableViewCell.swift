@@ -9,6 +9,9 @@ import UIKit
 
 final class PostTableViewCell: UITableViewCell {
 
+    private var likesCount: Int = 0
+    private var viewsCount: Int = 0
+
     private lazy var backgroundCellView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -46,12 +49,20 @@ final class PostTableViewCell: UITableViewCell {
 
     private lazy var postLikesLabel: UILabel = {
         let label = UILabel()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(likesLabelTapAction))
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 16, weight: .regular)
         label.textColor = .black
         label.textAlignment = .left
+        label.addGestureRecognizer(tapGesture)
+        label.isUserInteractionEnabled = true
         return label
     }()
+
+    @objc private func likesLabelTapAction() {
+        likesCount += 1
+        postLikesLabel.text = "Likes: " + String(likesCount)
+    }
 
     private lazy var postViewsLabel: UILabel = {
         let label = UILabel()
@@ -75,8 +86,10 @@ final class PostTableViewCell: UITableViewCell {
         postTitleLabel.text = model.author + ". " + model.title
         postImageView.image = UIImage(named: model.image)
         postDescriptionLabel.text = model.description
-        postLikesLabel.text = "Likes: " + String(model.likes)
-        postViewsLabel.text = "Views: " + String(model.views)
+        likesCount = model.likes
+        viewsCount = model.views
+        postLikesLabel.text = "Likes: " + String(likesCount)
+        postViewsLabel.text = "Views: " + String(viewsCount)
     }
 
     private func layout() {
