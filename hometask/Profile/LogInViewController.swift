@@ -9,6 +9,9 @@ import UIKit
 
 final class LogInViewController: UIViewController {
 
+    private let defaultLogin: String = "user"
+    private let defaultPassword: String = "12345678"
+
     private let notificationCenter = NotificationCenter.default
 
     private lazy var scrollView: UIScrollView = {
@@ -103,6 +106,18 @@ final class LogInViewController: UIViewController {
             } else {
                 shortPasswordLabelLayout()
             }
+            return
+        }
+        guard emailTextField.text == defaultLogin && passwordTextField.text == defaultPassword else {
+            let alert = UIAlertController(title: "Wrong login or password", message: "Use default values: login - user, password - 12345678", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                self.emailTextField.text = self.defaultLogin
+                self.passwordTextField.text = self.defaultPassword
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .default)
+            alert.addAction(okAction)
+            alert.addAction(cancelAction)
+            present(alert, animated: true)
             return
         }
         let profileVC = ProfileViewController()
