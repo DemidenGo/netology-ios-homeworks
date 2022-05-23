@@ -49,6 +49,7 @@ final class ProfileHeaderView: UIView {
         statusButton.translatesAutoresizingMaskIntoConstraints = false
         statusButton.backgroundColor = .systemBlue
         statusButton.setTitleColor(.white, for: .normal)
+        statusButton.setTitleColor(.black, for: .highlighted)
         statusButton.setTitle("Set status", for: .normal)
         statusButton.layer.cornerRadius = 4
         statusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
@@ -62,7 +63,11 @@ final class ProfileHeaderView: UIView {
     private var statusText: String?
 
     @objc private func statusButtonAction() {
-        guard statusText != nil && statusText != "" else { return }
+        guard statusText != nil && statusText != "" else {
+            statusTextField.backgroundColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.2)
+            statusTextField.shake()
+            return
+        }
         statusLabel.text = statusText
     }
 
@@ -213,5 +218,17 @@ extension ProfileHeaderView: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.endEditing(true)
         return true
+    }
+
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        statusTextField.backgroundColor = .white
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        statusTextField.backgroundColor = .white
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        statusTextField.backgroundColor = .white
     }
 }
