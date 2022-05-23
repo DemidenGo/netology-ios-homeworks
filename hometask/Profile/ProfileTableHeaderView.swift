@@ -103,8 +103,8 @@ final class ProfileHeaderView: UIView {
             UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.625) {
                 self.profileImageViewWidthConstraint.constant = UIScreen.main.bounds.width
                 self.profileImageViewHeightConstraint.constant = self.profileImageView.bounds.height * (UIScreen.main.bounds.width / self.profileImageView.bounds.width)
-                self.profileImageViewCenterXConstraint.constant = UIScreen.main.bounds.width / 2
-                self.profileImageViewCenterYConstraint.constant = UIScreen.main.bounds.height / 2 - 25
+                self.profileImageViewCenterXConstraint.constant = UIScreen.main.bounds.midX
+                self.profileImageViewCenterYConstraint.constant = UIScreen.main.bounds.midY - 25
                 self.layoutIfNeeded()
             }
 

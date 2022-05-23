@@ -87,9 +87,35 @@ final class LogInViewController: UIViewController {
     }()
 
     @objc private func tapAction() {
+        guard emailTextField.text != "" else {
+            emailTextField.backgroundColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.2)
+            emailTextField.shake()
+            return
+        }
+        guard passwordTextField.text != "" && passwordTextField.text != nil else {
+            passwordTextField.backgroundColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.2)
+            passwordTextField.shake()
+            return
+        }
+        guard passwordTextField.text!.count > 4 else {
+            if contentView.subviews.contains(shortPasswordLabel) {
+                shortPasswordLabel.isHidden = false
+            } else {
+                shortPasswordLabelLayout()
+            }
+            return
+        }
         let profileVC = ProfileViewController()
         navigationController?.pushViewController(profileVC, animated: true)
     }
+
+    private lazy var shortPasswordLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Password field needs more than 4 symbols"
+        label.font = UIFont.systemFont(ofSize: 14, weight: .thin)
+        return label
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,11 +182,22 @@ final class LogInViewController: UIViewController {
             passwordTextField.trailingAnchor.constraint(equalTo: emailTextField.trailingAnchor),
             passwordTextField.heightAnchor.constraint(equalToConstant: 50),
 
-            logInButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 16),
+            logInButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 30),
             logInButton.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor),
             logInButton.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor),
             logInButton.heightAnchor.constraint(equalToConstant: 50),
             logInButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+    }
+
+    private func shortPasswordLabelLayout() {
+        contentView.addSubview(shortPasswordLabel)
+
+        NSLayoutConstraint.activate([
+            shortPasswordLabel.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 7),
+            shortPasswordLabel.leadingAnchor.constraint(equalTo: passwordTextField.leadingAnchor),
+            shortPasswordLabel.bottomAnchor.constraint(equalTo: logInButton.topAnchor, constant: -7),
+            shortPasswordLabel.trailingAnchor.constraint(equalTo: passwordTextField.trailingAnchor)
         ])
     }
 }
@@ -172,5 +209,29 @@ extension LogInViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
         return true
+    }
+
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        emailTextField.backgroundColor = .systemGray6
+        passwordTextField.backgroundColor = .systemGray6
+        if contentView.subviews.contains(shortPasswordLabel) {
+            shortPasswordLabel.isHidden = true
+        }
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        emailTextField.backgroundColor = .systemGray6
+        passwordTextField.backgroundColor = .systemGray6
+        if contentView.subviews.contains(shortPasswordLabel) {
+            shortPasswordLabel.isHidden = true
+        }
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        emailTextField.backgroundColor = .systemGray6
+        passwordTextField.backgroundColor = .systemGray6
+        if contentView.subviews.contains(shortPasswordLabel) {
+            shortPasswordLabel.isHidden = true
+        }
     }
 }

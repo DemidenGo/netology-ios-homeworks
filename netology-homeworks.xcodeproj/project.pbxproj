@@ -134,8 +134,8 @@
 			children = (
 				92CF9EAF28148F120007C732 /* LogInViewController.swift */,
 				92370941280830F800178150 /* ProfileViewController.swift */,
-				924315C12823F336000EDED8 /* PhotosViewController.swift */,
 				9237093F280830BF00178150 /* ProfileTableHeaderView.swift */,
+				924315C12823F336000EDED8 /* PhotosViewController.swift */,
 				9204D8CD2822B6A80004E381 /* ViewCells */,
 			);
 			path = Profile;
