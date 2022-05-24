@@ -92,6 +92,11 @@ final class PostTableViewCell: UITableViewCell {
         postViewsLabel.text = "Views: " + String(viewsCount)
     }
 
+    func postViewsIncrement() {
+        viewsCount += 1
+        postViewsLabel.text = "Views: " + String(viewsCount)
+    }
+
     private func layout() {
         [backgroundCellView, postTitleLabel, postImageView, postDescriptionLabel, postLikesLabel, postViewsLabel].forEach { contentView.addSubview($0) }
 

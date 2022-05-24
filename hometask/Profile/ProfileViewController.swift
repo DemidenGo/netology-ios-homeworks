@@ -117,7 +117,19 @@ extension ProfileViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+
+        switch indexPath.section {
+        case 1:
+            let detailVC = DetailPostViewController()
+            detailVC.setupVC(model: postModel[indexPath.row])
+            present(detailVC, animated: true) {
+                let cell = tableView.cellForRow(at: indexPath) as? PostTableViewCell
+                cell?.postViewsIncrement()
+            }
+            tableView.deselectRow(at: indexPath, animated: true)
+        default:
+            return
+        }
     }
 }
 
