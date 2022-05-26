@@ -17,7 +17,7 @@ final class ProfileHeaderView: UIView {
 
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGestureAction))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(avatarTapGestureAction))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .systemBlue
         imageView.image = UIImage(named: "homer")
@@ -99,7 +99,7 @@ final class ProfileHeaderView: UIView {
         return view
     }()
 
-    @objc private func tapGestureAction() {
+    @objc private func avatarTapGestureAction() {
 
         largeAvatarViewLayout()
 
@@ -151,7 +151,23 @@ final class ProfileHeaderView: UIView {
                 self.profileImageViewCenterYConstraint.constant = 76
                 self.layoutIfNeeded()
             }
+        } completion: { _ in
+            self.largeAvatarBackground.removeFromSuperview()
         }
+    }
+
+    //обработка касаний на подложке аватара при анимации (касания не уходят в tableView)
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let isInside = super.point(inside: point, with: event)
+        if !isInside {
+            for subview in subviews {
+                let pointInSubview = subview.convert(point, from: self)
+                if subview.point(inside: pointInSubview, with: event) {
+                    return true
+                }
+            }
+        }
+        return isInside
     }
 
     override func layoutSubviews() {

@@ -14,8 +14,8 @@ struct PostModel {
     let description: String
     let detailDescription: String
     let image: String
-    let likes: Int
-    let views: Int
+    var likes: Int
+    var views: Int
 
     static func makeMockModel() -> [PostModel] {
 

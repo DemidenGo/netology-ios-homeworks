@@ -9,8 +9,8 @@ import UIKit
 
 final class PostTableViewCell: UITableViewCell {
 
-    private var likesCount: Int = 0
-    private var viewsCount: Int = 0
+    var likesCount: Int = 0
+    var viewsCount: Int = 0
 
     private lazy var backgroundCellView: UIView = {
         let view = UIView()

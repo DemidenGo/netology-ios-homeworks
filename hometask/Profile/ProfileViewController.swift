@@ -11,7 +11,7 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
 
-    private let postModel: [PostModel] = PostModel.makeMockModel()
+    private var postModel: [PostModel] = PostModel.makeMockModel()
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -129,6 +129,13 @@ extension ProfileViewController: UITableViewDelegate {
             tableView.deselectRow(at: indexPath, animated: true)
         default:
             return
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let cell = cell as? PostTableViewCell {
+            postModel[indexPath.row].likes = cell.likesCount
+            postModel[indexPath.row].views = cell.viewsCount
         }
     }
 }
