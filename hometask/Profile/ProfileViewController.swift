@@ -12,6 +12,7 @@ import UIKit
 final class ProfileViewController: UIViewController {
 
     private var postModel: [PostModel] = PostModel.makeMockModel()
+    private var newStatusText: String?
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -82,6 +83,24 @@ extension ProfileViewController: UITableViewDataSource {
             return UITableViewCell()
         }
     }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+
+        if editingStyle == .delete {
+            postModel.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        }
+    }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == 0 {
+            return false
+        } else {
+            return true
+        }
+    }
 }
 
 //MARK: - UITableViewDelegate
@@ -93,6 +112,9 @@ extension ProfileViewController: UITableViewDelegate {
         case 0:
             let header = ProfileHeaderView()
             header.layout()
+            if newStatusText != nil {
+                header.statusLabel.text = newStatusText
+            }
             return header
         default:
             return nil
@@ -133,9 +155,18 @@ extension ProfileViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard postModel.count > indexPath.row else { return }
         if let cell = cell as? PostTableViewCell {
             postModel[indexPath.row].likes = cell.likesCount
             postModel[indexPath.row].views = cell.viewsCount
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int) {
+        if section == 0 {
+            if let headerView = view as? ProfileHeaderView {
+                newStatusText = headerView.statusLabel.text
+            }
         }
     }
 }

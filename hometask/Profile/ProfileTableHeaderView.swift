@@ -35,7 +35,7 @@ final class ProfileHeaderView: UIView {
         return profileLabel
     }()
 
-    private lazy var statusLabel: UILabel = {
+    lazy var statusLabel: UILabel = {
         let statusLabel = UILabel()
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         statusLabel.text = "Woo-Hoo!"
