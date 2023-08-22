@@ -34,7 +34,7 @@ class DetailPostViewController: UIViewController {
     private lazy var postImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .black
+        imageView.backgroundColor = .systemBackground
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()

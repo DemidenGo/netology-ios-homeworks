@@ -46,7 +46,7 @@ final class LogInViewController: UIViewController {
         textField.textColor = .black
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         textField.autocapitalizationType = .none
-        textField.placeholder = "Email or phone"
+        textField.placeholder = "Email or phone (enter \"user\")"
         textField.clearButtonMode = .whileEditing
         textField.makeIndent(points: 12)
         textField.delegate = self
@@ -64,7 +64,7 @@ final class LogInViewController: UIViewController {
         textField.textColor = .black
         textField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         textField.autocapitalizationType = .none
-        textField.placeholder = "Password"
+        textField.placeholder = "Password (enter \"12345678\")"
         textField.clearButtonMode = .whileEditing
         textField.makeIndent(points: 12)
         textField.isSecureTextEntry = true
